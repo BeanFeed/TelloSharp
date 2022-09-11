@@ -18,7 +18,7 @@ public class Tello
     }
     private UdpClient client = new UdpClient();
     private UdpClient videoServer = new UdpClient();
-    private bool isFlying = false;
+    public bool isFlying = false;
     public int defTimeout = 5000;
     public bool printResults = true;
     private string SendToDrone(string message, bool printResults)
@@ -59,11 +59,13 @@ public class Tello
     public string Takeoff()
     {
         if (isFlying) return "Already Flying";
+        isFlying = true;
         return SendToDrone("takeoff", true);
     }
     public string Land()
     {
         if (!isFlying) return "Already Landed";
+        isFlying = false;
         return SendToDrone("land", false);
     }
     public void Emergency()
