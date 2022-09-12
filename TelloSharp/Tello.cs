@@ -21,13 +21,13 @@ public class Tello
     public bool isFlying = false;
     public int defTimeout = 5000;
     public bool printResults = true;
-    private string SendToDrone(string message, bool printResults)
+    private string SendToDrone(string message, bool printresults)
     {
         client.Send(Encoding.UTF8.GetBytes(message));
         IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Any, 8889);
         byte[] receivedResults = client.Receive(ref remoteEndPoint);
         string data = Encoding.UTF8.GetString(receivedResults);
-        if (printResults && printResults) { Console.WriteLine(data); }
+        if (printResults && printresults) { Console.WriteLine(data); }
         return data;
     }
     private string STDGR(string message)
