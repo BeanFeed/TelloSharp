@@ -6,7 +6,7 @@ namespace TelloSharp;
 
 public class Tello
 {
-    private string vsIp = "0.0.0.0";
+    private string vsIp = "192.168.10.1";
     private int vsPort = 11111;
     private bool streaming = false;
     public enum FlipDirection
