@@ -6,7 +6,6 @@ namespace TelloSharp;
 
 public class Tello
 {
-    private string vsIp = "192.168.10.1";
     private int vsPort = 11111;
     private bool streaming = false;
     public enum FlipDirection
@@ -52,7 +51,6 @@ public class Tello
     {
         client.Close();
         videoServer.Close();
-        videoServer.Dispose();
         streaming = false;
         isFlying = false;
     }
@@ -272,7 +270,7 @@ public class Tello
     }
     public string StreamOn()
     {
-        videoServer = new UdpClient(vsIp, vsPort);
+        videoServer = new UdpClient(vsPort);
         streaming = true;
         return SendToDrone("streamon", true);
     }
@@ -280,13 +278,12 @@ public class Tello
     {
         streaming = false;
         videoServer.Close();
-        videoServer.Dispose();
         return SendToDrone("streamoff", true);
     }
     public byte[] GetVideoImage()
     {
         if (!streaming) return null;
-        IPEndPoint ep = new IPEndPoint(IPAddress.Any, vsPort);
+        IPEndPoint ep = new IPEndPoint(IPAddress.Parse("0.0.0.0"), vsPort);
         return videoServer.Receive(ref ep);
     }
 
